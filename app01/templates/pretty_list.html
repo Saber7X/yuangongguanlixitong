@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin: 10px">
+            <a class="btn btn-success" href="/pretty/add/">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> {# 图标 #}
+                新建靓号
+            </a>
+
+        </div>
+
+        {#        搜索框#}
+        <div style="float: right; width: 300px">
+            <form method="get">
+                <div class="input-group">
+
+                    <input type="text" name="q" class="form-control" placeholder="Search for..."
+                           value="{{ search_data }}">
+                    <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </span>
+
+                </div><!-- /input-group -->
+            </form>
+        </div>
+
+        <div class="panel panel-default">
+
+
+            {#           整个表格#}
+            <!-- 这是上面那一列 -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {# 图标 #}
+                用户列表
+            </div>
+
+            <!-- 表单 -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>号码</th>
+                    <th>价格</th>
+                    <th>级别</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in queryset %}
+                    <tr>
+                        <th scope="row">{{ i.id }}</th>
+                        <td>{{ i.mobile }}</td>
+                        <td>{{ i.price }}</td>
+                        <td>{{ i.get_level_display }}</td>
+                        <td>{{ i.get_stauts_display }}</td>
+                        {#                <td>{{ i.depart_id.title }}</td> {# 这样是输出值,类似哈希 #}
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/pretty/{{ i.id }}/edit/">编辑</a>
+                            <a class="btn btn-danger btn-xs" href="/pretty/{{ i.id }}/delate/">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination">
+            {{ page_string }}
+            {#        <li><a href="?page=1">1 <span class="sr-only">(current)</span></a></li>#}
+            {#        <li><a href="/pretty/list/?page=2">2</a></li>#}
+            {#        <li><a href="/pretty/list/?page=3">3</a></li>#}
+            {#        <li><a href="/pretty/list/?page=4">4</a></li>#}
+            {#        <li><a href="/pretty/list/?page=5">5</a></li>#}
+        </ul>
+
+        {#    <div style="width: 300px">#}
+        {#    <form method="get" name="page">#}
+        {#        <div class="input-group">#}
+        {#          <input type="text" name="page" class="form-control" placeholder="页码">#}
+        {#          <span class="input-group-btn">#}
+        {#            <button class="btn btn-default" type="submit" value="跳转">#}
+        {#                跳转#}
+        {#            </button>#}
+        {#          </span>#}
+        {#        </div><!-- /input-group -->#}
+        {#        </form>#}
+        {#    </div>#}
+    </div>
+{% endblock %}

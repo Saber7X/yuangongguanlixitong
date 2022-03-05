@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div>
+        <div class="container">
+            <div style="margin: 10px">
+                <a class="btn btn-success" href="/admin/add/">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> {# 图标 #}
+                    新建管理员
+                </a>
+
+            </div>
+
+            <div class="panel panel-default">
+
+                {#        搜索框#}
+                <div style="float: right; width: 300px">
+                    <form method="get">
+                        <div class="input-group">
+
+                            <input type="text" name="q" class="form-control" placeholder="Search for..."
+                                   value="{{ search_data }}">
+                            <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </span>
+
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
+
+                {#           整个表格#}
+                <!-- 这是上面那一列 -->
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {# 图标 #}
+                    管理员列表
+                </div>
+
+                <!-- 表单 -->
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>密码</th>
+                        <th>重置密码</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in queryset %}
+                        <tr>
+                            <th scope="row">{{ i.id }}</th>
+                            <td>{{ i.username }}</td>
+                            <td>*******</td>
+                            <td>
+                                <a href="/admin/{{ i.id }}/reset/">重置密码</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" href="/admin/{{ i.id }}/edit/">编辑</a>
+                                <a class="btn btn-danger btn-xs" href="/admin/{{ i.id }}/delete/">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <ul class="pagination">
+                {{ page_string }}
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

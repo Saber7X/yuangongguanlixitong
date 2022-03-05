@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div>
+    <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"> 新建靓号 </h3>
+          </div>
+          <div class="panel-body">
+{#              不写action就是提交到当前地址#}
+{#                                 关闭浏览器校验#}
+              <form method="post" novalidate>
+                  {% csrf_token %}
+                    {% for i in form %}
+                        <div class="form-group">
+                            <label>{{ i.label }}</label> {# label加粗 #}
+                            {{ i }}
+                            <span style="color: #c7254e">{{ i.errors.0 }}</span> {# 如果有错误信息就会输出,获取的是一个列表，我只要输出第一个错误 #}
+                        </div>
+                    {% endfor %}
+
+
+                <button type="submit" class="btn btn-primary">提 交</button>
+
+              </form>
+
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{#<form method="post">#}
+{#        {% csrf_token %}#}
+{##}
+{#        {% for i in form %}#}
+{#            {{ i.label }}: {{ i }}#}
+{#        {% endfor %}#}
+{##}
+{# 这样可以使输入框前面显示那个表中的备注名#}
+{#        {{ form.name.label }}: {{ form.name }}#}
+{#        {{ form.password.label }}: {{ form.password }}#}
+{#        {{ form.age.label }}:{{ form.age }}#}
+{#    </form>#}
